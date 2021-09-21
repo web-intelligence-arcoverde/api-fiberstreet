@@ -57,7 +57,7 @@ Route.group(() => {
   Route.put('members/:id', 'MemberController.update').middleware(
     'is:administrator'
   );
-}).middleware(['auth', 'provider']);
+});
 
 /** Relationships */
 Route.group(() => {
@@ -68,8 +68,7 @@ Route.group(() => {
     'cables/relationship/:id/:objectType/:objectId',
     'CableRelationshipController.destroy'
   );
-}).middleware(['auth', 'provider']);
-
+});
 /** Spreadsheets */
 Route.group(() => {
   Route.get('spreadsheets/ceo/:id', 'SpreadsheetCeoController.show');
@@ -77,7 +76,7 @@ Route.group(() => {
   Route.put('spreadsheets/ceo/:id', 'SpreadsheetController.update');
   Route.delete('spreadsheets/ceo/:id', 'SpreadsheetController.destroy');
   Route.resource('spreadsheetlinks', 'SpreadsheetLinkController').apiOnly();
-}).middleware(['auth', 'provider']);
+});
 
 /** Layers modification group */
 Route.group(() => {
@@ -129,7 +128,7 @@ Route.group(() => {
         [['clients.update'], ['can:ceo_cto_mod']],
       ])
     );
-}).middleware(['auth', 'provider']);
+});
 
 /**
  * GeoJSON Routes
@@ -139,9 +138,7 @@ Route.group(() => {
   Route.get('clients', 'ClientGeoJsonController.index');
   Route.get('ctos', 'CtoGeoJsonController.index');
   Route.get('ceos', 'CeoGeoJsonController.index');
-})
-  .middleware(['auth', 'provider'])
-  .prefix('gj');
+}).prefix('gj');
 
 /** Route to obtain spreadsheet download */
 Route.group(() => {
@@ -153,4 +150,4 @@ Route.group(() => {
   // Route.route('imports', 'ImportLayerController', ['POST'])
   Route.post('imports', 'ImportLayerController.store'); // .validator('ImportLayer')
   Route.post('import', 'ImportLayerController.store').formats(['xml'], true);
-}).middleware(['auth', 'provider']);
+});
